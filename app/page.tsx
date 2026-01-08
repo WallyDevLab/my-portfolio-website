@@ -1,8 +1,20 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Download, Mail } from "lucide-react"
 
-const PROJECTS = [
+
+interface Project {
+  title: string;
+  image: string;
+  description: string;
+  tech: string[];
+  link: string;
+}
+
+const PROJECTS: Project[] = [
   {
     title: "E-commerce Dashboard",
     image: "/e-commerce.png",
@@ -28,52 +40,91 @@ const SKILLS = [
 
 export default function Home() {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 space-y-24">
+    <div className="max-w-5xl mx-auto px-6 py-12 space-y-32">
 
       {/* Hero Section */}
+        <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-8 pt-10 md:pt-20">
+          
+          {/* Left Side: Text Content */}
+          <div className="flex flex-col items-start gap-4 flex-1">
+            {/* <Badge variant="outline" className="px-3 py-1">Available for work</Badge> */}
 
-      <section className="flex flex-col items-start gap-4 pt-20">
-        
-        {/* <Badge variant="outline" className="px-3 py-1">Available for work</Badge> */}
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center md:text-left">
+              Hi, I&apos;m <span className="text-blue-600">Katlego Barayi</span>
+            </h1>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-          Hi, I'm <span className="text-blue-600">Katlego Barayi</span>
-        </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] text-center md:text-left">
+              A full-stack developer passionate about building clean, 
+              performant web applications using TypeScript and React.
+            </p>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px]">
-          A full-stack developer passionate about building clean, 
-          performant web applications using TypeScript and React.
+            <div className="flex gap-4 w-full justify-center md:justify-start">
+              <Button asChild className="gap-2">
+                <a href="/cv.pdf" download="Katlego_Barayi_CV.pdf">
+                  <Download className="h-4 w-4" />
+                  Download CV
+                </a>
+              </Button>
+
+              <Button variant="outline" asChild className="gap-2">
+                <a href="#contact">
+                  <Mail className="h-4 w-4" />
+                  Contact Me
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Side: Profile Picture */}
+          <div className="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
+            <div className="absolute inset-0 bg-blue-600/10 rounded-full blur-3xl" /> {/* Subtle glow effect */}
+            <img
+              src="/profile.jpg" // Replace with your actual filename in public/
+              alt="Katlego Barayi"
+              // fill
+              // priority // Loads the image immediately since it's above the fold
+              className="rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-2xl"
+            />
+          </div>
+
+        </section>
+      {/* About Section */}
+      <section id="about" className="space-y-6 scroll-mt-20">
+        <h2 className="text-3xl font-bold">About Me</h2>
+        <p className="text-lg text-muted-foreground leading-relaxed">
+          I am a developer who loves the intersection of design and functionality. 
+          Currently, I&apos;m focused on building scalable web applications and 
+          experimenting with new frontend technologies. When I&apos;m not coding, 
+          you can find me exploring the latest updates in the Linux ecosystem 
+          or contributing to open-source projects.
         </p>
-
-        <div className="flex gap-4">
-          <Button>View Projects</Button>
-          <Button variant="outline">Contact Me</Button>
-        </div>
-
       </section>
 
-      {/* Basic Project Placeholder */}
-      <section id="projects" className="space-y-8">
-        <h2 className="text-3xl font-bold">Featured Projects</h2>
+      {/* Tech Stack Section */}
+      <section id="skills" className="space-y-8 scroll-mt-20">
+        <h2 className="text-3xl font-bold tracking-tight">Tech Stack</h2>
+        <div className="flex flex-wrap gap-3">
+          {SKILLS.map((skill) => (
+            <Badge key={skill} variant="secondary" className="text-sm px-4 py-2">
+              {skill}
+            </Badge>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="space-y-8 scroll-mt-20">
+        <h2 className="text-3xl font-bold tracking-tight">Featured Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Skills Section */}
-            <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Tech Stack</h2>
-              <div className="flex flex-wrap gap-3">
-                {SKILLS.map((skill) => (
-                  <Badge key={skill} variant="secondary" className="text-sm px-4 py-2">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </section>
           {PROJECTS.map((project, index) => (
-            <Card key={index} className="flex flex-col" overflow-hidden>
-              <div className="relative h-48 w-full">
+            <Card key={index} className="flex flex-col overflow-hidden"> {/* Fixed className syntax */}
+              <div className="relative h-48 w-full bg-muted overflow-hidden">
+                {/* Use Next.js Image for optimization */}
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-300" 
+                  // fill
+                  className="object-cover hover:scale-105 transition-transform duration-300" 
                 />
               </div>
               <CardContent className="p-6 flex-1 flex flex-col">
@@ -83,7 +134,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((t) => (
-                    <Badge key={t} variant="secondary">{t}</Badge>
+                    <Badge key={t} variant="outline">{t}</Badge>
                   ))}
                 </div>
                 <Button variant="outline" className="w-full" asChild>
@@ -91,17 +142,35 @@ export default function Home() {
                 </Button>
               </CardContent>
             </Card>
-          ))}
-          <section id="about" className="space-y-6">
-            <h2 className="text-3xl font-bold">About Me</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I am a developer who loves the intersection of design and functionality. 
-              Currently, I'm focused on building scalable web applications and 
-              experimenting with new frontend technologies. When I'm not coding, 
-              you can find me exploring the latest updates in the Linux ecosystem 
-              or contributing to open-source projects.
-            </p>
-          </section>
+          ))}          
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="space-y-8 pb-20 scroll-mt-20">
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold tracking-tight">Get In Touch</h2>
+          <p className="text-muted-foreground">
+            Have a project in mind? Fill out the form below and I&apos;ll get back to you.
+          </p>
+        </div>
+
+        <div className="max-w-md">
+          <form 
+            action="https://formspree.io/f/YOUR_FORMSPREE_ID" 
+            method="POST" 
+            className="space-y-4"
+          >
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium">Your Email</label>
+              <Input id="email" name="email" type="email" placeholder="name@example.com" required />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="message" className="text-sm font-medium">Message</label>
+              <Textarea id="message" name="message" placeholder="How can I help?" rows={4} required />
+            </div>
+            <Button type="submit" className="w-full">Send Message</Button>
+          </form>
         </div>
       </section>
     </div>
