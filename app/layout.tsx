@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
+import {  Footer } from "@/components/footer"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <Navbar/>
           {children}
+          <Footer/>
+
+
         </ThemeProvider>
       </body>
     </html>
