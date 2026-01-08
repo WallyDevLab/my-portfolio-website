@@ -20,6 +20,12 @@ const PROJECTS = [
   // Add more projects here easily!
 ]
 
+const SKILLS = [
+  "React", "Next.js", "TypeScript", "Tailwind CSS", 
+  "Node.js", "PostgreSQL", "Prisma", "Git", 
+  "Docker", "AWS", "Python", "Linux (Pop!_OS)"
+]
+
 export default function Home() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 space-y-24">
@@ -50,6 +56,17 @@ export default function Home() {
       <section id="projects" className="space-y-8">
         <h2 className="text-3xl font-bold">Featured Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Skills Section */}
+            <section className="space-y-6">
+              <h2 className="text-3xl font-bold">Tech Stack</h2>
+              <div className="flex flex-wrap gap-3">
+                {SKILLS.map((skill) => (
+                  <Badge key={skill} variant="secondary" className="text-sm px-4 py-2">
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
+            </section>
           {PROJECTS.map((project, index) => (
             <Card key={index} className="flex flex-col" overflow-hidden>
               <div className="relative h-48 w-full">
@@ -75,6 +92,16 @@ export default function Home() {
               </CardContent>
             </Card>
           ))}
+          <section id="about" className="space-y-6">
+            <h2 className="text-3xl font-bold">About Me</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I am a developer who loves the intersection of design and functionality. 
+              Currently, I'm focused on building scalable web applications and 
+              experimenting with new frontend technologies. When I'm not coding, 
+              you can find me exploring the latest updates in the Linux ecosystem 
+              or contributing to open-source projects.
+            </p>
+          </section>
         </div>
       </section>
     </div>
