@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Download, Mail } from "lucide-react"
-
+import Image from "next/image"
+import profilePic from "@/public/image/portfolio-profile.jpg"
 
 interface Project {
   title: string;
@@ -43,12 +44,22 @@ export default function Home() {
     <div className="max-w-5xl mx-auto px-6 py-12 space-y-32">
 
       {/* Hero Section */}
-        <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-8 pt-10 md:pt-20">
+        <section className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 pt-10 md:pt-20">
           
-          {/* Left Side: Text Content */}
-          <div className="flex flex-col items-start gap-4 flex-1">
-            {/* <Badge variant="outline" className="px-3 py-1">Available for work</Badge> */}
+          {/* 1. Image is now FIRST in code: Top on Mobile, Left on Desktop */}
+          <div className="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
+            <div className="absolute inset-0 bg-blue-600/10 rounded-full blur-3xl" />
+            <Image
+              src={profilePic}
+              alt="Katlego Barayi"
+              fill
+              priority
+              className="rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-2xl"
+            />
+          </div>
 
+          {/* 2. Text Content: Bottom on Mobile, Right on Desktop */}
+          <div className="flex flex-col items-center md:items-start gap-4 flex-1">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center md:text-left">
               Hi, I&apos;m <span className="text-blue-600">Katlego Barayi</span>
             </h1>
@@ -58,7 +69,7 @@ export default function Home() {
               performant web applications using TypeScript and React.
             </p>
 
-            <div className="flex gap-4 w-full justify-center md:justify-start">
+            <div className="flex gap-4 w-full justify-center md:justify-start mt-2">
               <Button asChild className="gap-2">
                 <a href="/cv.pdf" download="Katlego_Barayi_CV.pdf">
                   <Download className="h-4 w-4" />
@@ -73,18 +84,6 @@ export default function Home() {
                 </a>
               </Button>
             </div>
-          </div>
-
-          {/* Right Side: Profile Picture */}
-          <div className="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
-            <div className="absolute inset-0 bg-blue-600/10 rounded-full blur-3xl" /> {/* Subtle glow effect */}
-            <img
-              src="/profile.jpg" // Replace with your actual filename in public/
-              alt="Katlego Barayi"
-              // fill
-              // priority // Loads the image immediately since it's above the fold
-              className="rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-2xl"
-            />
           </div>
 
         </section>
@@ -157,7 +156,7 @@ export default function Home() {
 
         <div className="max-w-md">
           <form 
-            action="https://formspree.io/f/YOUR_FORMSPREE_ID" 
+            action="https://formspree.io/f/mojvgojw"
             method="POST" 
             className="space-y-4"
           >

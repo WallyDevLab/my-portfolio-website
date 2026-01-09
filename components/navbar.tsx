@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun } from "lucide-react"
+import Image from "next/image"
+import icon from "@/public/icons/Wally-Dev-Lab-Official-Logo-White-Logo-Mark.png"
 
 
 export function Navbar() {
@@ -34,16 +36,16 @@ export function Navbar() {
           onClick={scrollToTop} 
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          <img 
-            src="/public/icons/Wally-Dev-Lab-Official-Logo-White-Logo-Mark.png" // Path to your logo in public folder
+          <Image 
+            src={icon} // Path to your logo in public folder
             alt="Katlego Barayi Logo"
             width={32}      // Adjust size as needed
             height={32}
             className="rounded-sm"
           />
-          <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
+          {/* <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
             Wally.dev
-          </span>
+          </span> */}
         </button>
         
         <div className="flex items-center gap-4 text-sm font-medium">
