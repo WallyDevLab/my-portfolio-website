@@ -19,7 +19,7 @@ export function Footer() {
             <span className="sr-only">GitHub</span>
           </a>
           <a 
-            href="https://linkedin.com/in/yourusername" 
+            href="https://www.linkedin.com/in/wally-dev-lab/" 
             target="_blank" 
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -27,13 +27,13 @@ export function Footer() {
             <Linkedin className="h-5 w-5" />
             <span className="sr-only">LinkedIn</span>
           </a>
-          <a 
+          {/* <a 
             href="mailto:wallydevlab@gmail.com" 
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <Mail className="h-5 w-5" />
             <span className="sr-only">Email</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </footer>
