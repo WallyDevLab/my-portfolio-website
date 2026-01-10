@@ -7,7 +7,10 @@ import { Footer } from "@/components/footer"
 // 2. Define and export the metadata object
 export const metadata: Metadata = {
   title: "Wally Dev Lab | Full-Stack Developer",
-  description: "Portfolio of a developer specializing in React, TypeScript, and modern web technologies.",
+  description: "Portfolio of Katlego Barayi",
+  icons: {
+    icon: "@/app/Wally-Dev-Lab-Official-Logo-Vertical-White.ico", // Replace with your actual filename in the public folder
+  },
   // This helps with SEO and social media sharing
   openGraph: {
     title: "Wally Dev Lab",
