@@ -1,0 +1,29 @@
+# 1. Setup Colors and Feedback
+$ErrorActionPreference = "Stop"
+Write-Host "🔍 Starting pre-deployment checks..." -ForegroundColor Cyan
+
+# 2. Run the Build Check (Linting, Types, and Build)
+try {
+    npm run build-check
+    Write-Host "`n✅ Build check passed! Proceeding to push..." -ForegroundColor Green
+}
+catch {
+    Write-Host "`n❌ Build check failed. Please fix the errors above before pushing." -ForegroundColor Red
+    exit 1
+}
+
+# 3. Handle Commit Message
+$message = Read-Host "`n📝 Enter your commit message (Leave blank for timestamp)"
+
+if ([string]::IsNullOrWhiteSpace($message)) {
+    $currentDate = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $message = "Update portfolio: $currentDate"
+}
+
+# 4. Git Automation
+Write-Host "`n🚀 Pushing to GitHub..." -ForegroundColor Cyan
+git add .
+git commit -m "$message"
+git push origin main
+
+Write-Host "`n🎉 Deployment successful! Vercel is now building your changes." -ForegroundColor Green

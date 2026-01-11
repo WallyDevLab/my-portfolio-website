@@ -1,0 +1,21 @@
+Write-Host "🚀 Starting installation of portfolio dependencies for Windows..." -ForegroundColor Cyan
+
+# 1. Core Dependencies
+Write-Host "📦 Installing Core dependencies (Next.js, React, Icons)..."
+npm install next@latest react@latest react-dom@latest lucide-react next-themes react-icons
+
+# 2. Shadcn UI Core Utilities
+Write-Host "🎨 Installing Shadcn UI utilities..."
+npm install class-variance-authority clsx tailwind-merge tailwindcss-animate
+
+# 3. Component-Specific Dependencies
+Write-Host "🎡 Installing Carousel dependencies..."
+npm install embla-carousel-react
+
+# 4. Dev Dependencies
+Write-Host "🛠️ Installing Dev dependencies..."
+npm install -D typescript @types/node @types/react @types/react-dom tailwindcss postcss autoprefixer
+
+Write-Host ""
+Write-Host "✅ All dependencies installed successfully!" -ForegroundColor Green
+Write-Host "💡 You can now run 'npm run dev' to start your project." -ForegroundColor Yellow
