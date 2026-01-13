@@ -5,7 +5,9 @@ import { prisma } from "@/lib/prisma"
 import { AddTestimonialForm } from "./add-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-// import { Testimonial } from "@prisma/client" 
+import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 async function getTestimonials() {
   try {
@@ -25,8 +27,17 @@ export default async function TestimonialsPage() {
   const categories = ["Mentors", "Mentees", "Colleagues"]
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-20 space-y-16">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+    <div className="max-w-6xl mx-auto px-6 py-10 md:py-20 space-y-12">
+      
+      {/* 1. Added Back Button */}
+      <Button variant="ghost" asChild className="gap-2 -ml-2 text-muted-foreground hover:text-foreground">
+        <Link href="/">
+          <ArrowLeft className="h-4 w-4" />
+          Back to Portfolio
+        </Link>
+      </Button>
+
+      <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
         <div className="space-y-2 text-center md:text-left">
           <h1 className="text-4xl font-extrabold tracking-tight">Wall of Love</h1>
           <p className="text-muted-foreground text-lg">Testimonials from people I&apos;ve worked with.</p>
