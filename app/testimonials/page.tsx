@@ -1,7 +1,8 @@
-import { prisma } from "@/lib/prisma" // You'll need to create this lib file
+import { prisma } from "@/lib/prisma"
 import { AddTestimonialForm } from "./add-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Testimonial } from "@prisma/client" 
 
 async function getTestimonials() {
   return await prisma.testimonial.findMany({
@@ -27,7 +28,9 @@ export default async function TestimonialsPage() {
         <section key={cat} className="space-y-8">
           <h2 className="text-2xl font-bold border-b pb-2">{cat}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.filter(t => t.category === cat).map((t) => (
+            {testimonials
+              .filter((t: Testimonial) => t.category === cat) 
+              .map((t: Testimonial) => (
               <Dialog key={t.id}>
                 <DialogTrigger asChild>
                   <Card className="cursor-pointer hover:border-blue-500 transition-all group">
