@@ -10,9 +10,9 @@ import profilePic from "@/public/image/portfolio-profile.jpg"
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
   SiNodedotjs, SiPostgresql, SiPrisma, SiGit, 
-  SiDocker, SiAmazonwebservices, SiPython, SiPopos,
+  SiDocker, SiPython, SiPopos,
   SiJavascript, SiHtml5, SiCss3, SiExpress, SiVercel,
-  SiPostman, SiSqlite, SiMongodb
+  SiPostman, SiMongodb
 } from "react-icons/si"
 
 import {

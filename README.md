@@ -1,5 +1,3 @@
-***
-
 # 🚀 Wally Dev Lab | Full-Stack Portfolio
 
 A modern, high-performance portfolio website built with **Next.js 14 (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed for developers who value clean code, automation, and a professional user experience.
@@ -14,6 +12,8 @@ A modern, high-performance portfolio website built with **Next.js 14 (App Router
 *   **Language:** [TypeScript](https://www.typescriptlang.org/)
 *   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 *   **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+*   **Database:** [Prisma Postgres](https://www.prisma.io/postgres) (Managed SQL)
+*   **ORM:** [Prisma 7](https://www.prisma.io/)
 *   **Icons:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
 *   **Animations/Carousel:** [Embla Carousel](https://www.embla-carousel.com/)
 *   **Forms:** [Formspree](https://formspree.io/)
@@ -24,29 +24,46 @@ A modern, high-performance portfolio website built with **Next.js 14 (App Router
 ## ✨ Key Features
 
 ### 1. 📄 CV Download System
-A professional "Download CV" button is integrated into the Hero section. 
-*   **How it works:** The PDF is served directly from the `/public` directory.
-*   **Safety:** Uses the HTML5 `download` attribute to ensure a seamless download experience.
+A professional "Download CV" button is integrated into the Hero section. The PDF is served directly from the `/public` directory using the HTML5 `download` attribute for a seamless experience.
 
 ### 2. 📧 Serverless Contact Form
-Uses **Formspree** for backend-less email handling.
-*   Messages are delivered directly to your inbox.
-*   Built with `shadcn/ui` form components for a polished look.
+Uses **Formspree** for backend-less email handling. Messages are delivered directly to your inbox, utilizing polished `shadcn/ui` form components.
 
 ### 3. 🎡 Featured Projects Carousel
-Interactive project gallery that keeps the UI clean.
-*   **Responsive:** Shows 2 projects on desktop and 1 on mobile.
-*   **Touch Optimized:** Supports swipe gestures on smartphones.
+Interactive project gallery built with Embla Carousel. It is fully responsive, showing 2 projects on desktop and 1 on mobile with touch-swipe support.
 
-### 4. 🌙 Adaptive Theming
-Full support for Dark and Light modes.
-*   **System Detection:** Automatically respects the user's OS theme.
-*   **Dynamic Icons:** Navbar logos and tech icons swap color/files based on the active theme.
+### 4. 💬 Full-Stack Testimonials (Wall of Love)
+A dedicated `/testimonials` page that allows mentors, mentees, and colleagues to leave feedback.
+*   **Database Integrated:** Powered by Prisma Postgres.
+*   **Categorized:** Automatically groups feedback into Mentors, Mentees, and Colleagues.
+*   **Pop-out Modals:** Uses shadcn `Dialog` for reading long-form testimonials.
+*   **Spam Prevention:** Server-side logic and database-level `@unique` constraints prevent duplicate submissions from the same email.
 
-### 5. 📱 Advanced Mobile Navigation
-Custom "Burger Menu" using the shadcn `Sheet` component.
-*   Centered full-screen overlay for better thumb-reach.
-*   Auto-closing logic when a navigation link is clicked.
+### 5. 🌙 Adaptive Theming
+Full support for Dark and Light modes. Automatically respects the user's OS theme and features dynamic logo swapping.
+
+### 6. 📱 Advanced Mobile Navigation
+Custom "Burger Menu" using the shadcn `Sheet` component with a centered full-screen overlay and auto-closing logic.
+
+---
+
+## 🗄️ Database Architecture
+
+The project uses Prisma 7 to manage the relational data model.
+
+```prisma
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  surname     String
+  email       String   @unique
+  role        String   // e.g., Mentor, Senior Developer, Scrum Master
+  category    String   // e.g., Mentors, Mentees, Colleagues
+  oneLiner    String
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+}
+```
 
 ---
 
@@ -55,7 +72,7 @@ Custom "Burger Menu" using the shadcn `Sheet` component.
 I have built a custom suite of automation scripts to ensure a consistent experience across different operating systems:
 
 ### Linux (Pop!_OS / Ubuntu) & macOS
-*   `install-deps.sh`: Installs all core, UI, and icon dependencies in one click.
+*   `install-deps.sh`: Installs all core, UI, database adapters, and icon dependencies.
 *   `deploy.sh`: A pre-deployment pipeline that runs linting, type-checking, and build tests before pushing to GitHub.
 
 ### Windows
@@ -87,11 +104,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ```
 
 ### 3. Configuration
-To personalize the portfolio, update the following:
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL="your-prisma-postgres-connection-string"
+```
+Also, update the following:
 *   **CV:** Place your resume in `public/Profile.pdf`.
-*   **Formspree:** Update the form `action` URL in `src/app/page.tsx` with your unique Formspree ID.
+*   **Formspree:** Update the form `action` URL in `src/app/page.tsx`.
 *   **Images:** Place your profile photo in `public/image/portfolio-profile.jpg`.
-*   **Logos:** Add `logo-black.png` and `logo-white.png` to the `public/` folder for theme-switching.
 
 ---
 
@@ -102,32 +122,22 @@ To personalize the portfolio, update the following:
 npm run dev
 ```
 
-### Safe Deployment
-To push changes to production safely (this runs the `build-check` script to catch errors before they reach Vercel):
-
-**On Linux:**
+### Database Sync
+Whenever you update the schema, sync it with your Prisma Postgres instance:
 ```bash
-./deploy.sh
+npx prisma db push
 ```
 
-**On Windows:**
-```powershell
-.\deploy.ps1
-```
+### Safe Deployment
+To push changes to production safely (runs `lint`, `type-check`, and `build` first):
 
-### The `build-check` Script
-The automated deployment process runs the following command:
-`npm run lint && tsc --noEmit && npm run build`
-*   **Lint:** Checks for syntax and styling errors.
-*   **Type Check:** Ensures 100% TypeScript type safety.
-*   **Build:** Verifies that the Next.js production build succeeds.
+**On Linux:** `./deploy.sh` | **On Windows:** `.\deploy.ps1`
 
 ---
 
 ## 📸 Metadata & SEO
-Optimized for search engines and social media:
-*   **Metadata API:** Configured for high-ranking SEO titles and descriptions.
-*   **OpenGraph:** Pre-configured for rich link previews on LinkedIn, Twitter, and Discord.
+*   **Metadata API:** Optimized for SEO titles and descriptions.
+*   **OpenGraph:** Pre-configured rich link previews for LinkedIn and Twitter.
 *   **Favicon:** Custom branding integrated via `src/app/icon.png`.
 
 ---
