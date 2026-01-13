@@ -2,13 +2,15 @@ import { prisma } from "@/lib/prisma"
 import { AddTestimonialForm } from "./add-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Testimonial } from "@prisma/client" 
+// import { Testimonial } from "@prisma/client" 
 
 async function getTestimonials() {
   return await prisma.testimonial.findMany({
     orderBy: { createdAt: 'desc' }
   })
 }
+
+type Testimonial = Awaited<ReturnType<typeof getTestimonials>>[number]
 
 export default async function TestimonialsPage() {
   const testimonials = await getTestimonials()
