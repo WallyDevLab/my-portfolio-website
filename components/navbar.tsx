@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
@@ -32,6 +33,7 @@ export function Navbar() {
       <a href="#about" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">About</a>
       <a href="#projects" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Projects</a>
       <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Contact</a>
+      <Link href="/testimonials" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Testimonials</Link>
     </>
   )
 
