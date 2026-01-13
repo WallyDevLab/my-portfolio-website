@@ -7,11 +7,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu } from "lucide-react"
 import {  Sheet,  SheetContent,  SheetTrigger,} from "@/components/ui/sheet"
+import { usePathname, useRouter } from "next/navigation"
 import whiteIcon from "@/public/icons/wally-dev-lab-hori-icon.png"
 import blackIcon from "@/public/icons/wally-dev-lab-hori-icon-blk.png"
 
 export function Navbar() {
   const { setTheme, resolvedTheme } = useTheme()
+  const pathname = usePathname()
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -20,9 +23,17 @@ export function Navbar() {
     setMounted(true)
   }, [])
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+  const handleLogoClick = () => {
+    if (pathname === "/") {
+      // If we are on the home page, scroll to top safely
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      // If we are on any other page (like /testimonials), go back home
+      router.push("/");
+    }
+  };
 
   // FIX: Change these from functions () => (...) to variables (...)
   const navLinksJSX = (
@@ -56,7 +67,7 @@ export function Navbar() {
       <div className="container flex h-16 items-center justify-between max-w-5xl mx-auto px-6">
         
         {/* Logo Section - Clickable to scroll to top */}
-                <button onClick={scrollToTop} className="flex items-center gap-2 hover:opacity-80 ransition-opacity" type="button">
+                <button onClick={handleLogoClick} className="flex items-center gap-2 hover:opacity-80 ransition-opacity" type="button">
                   <div className="relative w-45 h-25">
                     {/* This icon shows ONLY in Light Mode */}
                     <Image 
