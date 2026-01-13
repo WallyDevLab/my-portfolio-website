@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic'; // This is the magic line
+
+
 import { prisma } from "@/lib/prisma"
 import { AddTestimonialForm } from "./add-form"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,9 +8,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 // import { Testimonial } from "@prisma/client" 
 
 async function getTestimonials() {
-  return await prisma.testimonial.findMany({
-    orderBy: { createdAt: 'desc' }
-  })
+  try {
+    return await prisma.testimonial.findMany({
+      orderBy: { createdAt: 'desc' }
+    })
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    return []; // Return an empty array so the page still renders
+  }
 }
 
 type Testimonial = Awaited<ReturnType<typeof getTestimonials>>[number]
