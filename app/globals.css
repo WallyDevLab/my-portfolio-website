@@ -121,3 +121,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .shadow-amber-500\/20 { shadow-color: rgba(245, 158, 11, 0.2); }
+  /* repeat for blue, emerald, purple if your tailwind version doesn't auto-gen them */
+}

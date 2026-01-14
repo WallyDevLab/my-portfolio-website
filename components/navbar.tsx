@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu } from "lucide-react"
-import {  Sheet,  SheetContent,  SheetTrigger,} from "@/components/ui/sheet"
+import {  Sheet,  SheetContent,  SheetDescription,  SheetTitle,  SheetTrigger,} from "@/components/ui/sheet"
 import { usePathname, useRouter } from "next/navigation"
 import whiteIcon from "@/public/icons/wally-dev-lab-hori-icon.png"
 import blackIcon from "@/public/icons/wally-dev-lab-hori-icon-blk.png"
@@ -39,6 +39,7 @@ export function Navbar() {
   const navLinksJSX = (
     <>
       <a href="#about" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">About</a>
+      <a href="#experience" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Experience</a>
       <a href="#projects" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Projects</a>
       <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Contact</a>
       <Link href="/testimonials" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Testimonials</Link>
@@ -95,22 +96,31 @@ export function Navbar() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center gap-2">
-          {themeToggleJSX}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-full flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center gap-8 text-2xl font-semibold">
-                {navLinksJSX}
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
+          <div className="flex md:hidden items-center gap-2">
+            {themeToggleJSX}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              
+              <SheetContent side="right" className="w-full flex flex-col items-center justify-center">
+                
+                {/* --- ADD THESE ACCESSIBILITY TITLES START --- */}
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Main site navigation links for About, Projects, Experience, and Contact sections.
+                </SheetDescription>
+                {/* --- ADD THESE ACCESSIBILITY TITLES END --- */}
+
+                <div className="flex flex-col items-center gap-8 text-2xl font-semibold">
+                  {navLinksJSX}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
       </div>
     </nav>
   )
