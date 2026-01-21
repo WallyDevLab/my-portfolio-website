@@ -330,7 +330,7 @@ export default async function Home() {
               <CarouselNext className="static translate-y-0" />
             </div>
           </Carousel>
-        ) : <p className="text-muted-foreground italic">No testimonials yet.</p>}
+        ) }
       </section>
 
       {/* Contact Section */}
