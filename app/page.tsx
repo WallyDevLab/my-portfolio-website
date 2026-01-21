@@ -9,6 +9,8 @@ import Link from "next/link"
 import Image from "next/image"
 import profilePic from "@/public/image/portfolio-profile.jpg"
 import { TechStack } from "@/components/tech-stack" 
+import { TestimonialCard } from "@/components/testimonial-card" 
+
 
 import {
   Carousel,
@@ -123,78 +125,73 @@ export default async function Home() {
       </section>
 
       {/* Work Experience Section */}
-        <section id="experience" className="space-y-10 scroll-mt-20">
-          <div className="space-y-2 text-center md:text-left">
-            <h2 className="text-3xl font-bold tracking-tight">Work Experience</h2>
-            <p className="text-muted-foreground font-medium">My professional journey and technical contributions.</p>
-          </div>
+      <section id="experience" className="space-y-10 scroll-mt-20">
+        <div className="space-y-2 text-center md:text-left">
+          <h2 className="text-3xl font-bold tracking-tight">Work Experience</h2>
+          <p className="text-muted-foreground font-medium">My professional journey and technical contributions.</p>
+        </div>
 
-          {/* 
-            1. Line: Removed 'before' from mobile. 
-            Added 'md:before' to only show the timeline line on desktop 
-          */}
-          <div className="space-y-8 relative md:before:absolute md:before:inset-0 md:before:mx-auto md:before:h-full md:before:w-0.5 md:before:bg-gradient-to-b md:before:from-transparent md:before:via-muted-foreground/20 md:before:to-transparent">
-            {EXPERIENCE.map((job, index) => (
-              <div key={index} className="relative flex items-center md:justify-normal md:odd:flex-row-reverse group">
-                
-                {/* 
-                  2. Dot: Added 'hidden md:flex' 
-                  This hides the briefcase circle on mobile and only shows it on desktop
-                */}
-                <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-primary bg-background text-primary absolute left-1/2 -translate-x-1/2 z-10 shadow-sm">
-                  <Briefcase size={18} />
+        <div className="space-y-8 relative md:before:absolute md:before:inset-0 md:before:mx-auto md:before:h-full md:before:w-0.5 md:before:bg-gradient-to-b md:before:from-transparent md:before:via-muted-foreground/20 md:before:to-transparent">
+          {EXPERIENCE.map((job, index) => (
+            /* 
+              CHANGE: Changed 'md:odd:flex-row-reverse' to 'md:even:flex-row-reverse'
+              This makes the 1st item (odd) stay on the left 
+              and the 2nd item (even) flip to the right.
+            */
+            <div key={index} className="relative flex items-center md:justify-normal md:even:flex-row-reverse group">
+              
+              {/* The Timeline Dot (Briefcase) - Centered on Desktop */}
+              <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-primary bg-background text-primary absolute left-1/2 -translate-x-1/2 z-10 shadow-sm">
+                <Briefcase size={18} />
+              </div>
+
+              {/* Content Card */}
+              <div className="w-full md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border bg-muted/10 hover:bg-muted/20 transition-all duration-300 shadow-sm">
+                <div className="flex flex-col space-y-2 mb-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <h3 className="text-xl font-bold text-foreground">{job.role}</h3>
+                    <span className="w-fit text-xs font-bold px-2 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                      {job.period}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
+                    <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
+                      <Briefcase size={14} /> {job.company}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MapPin size={14} /> {job.location}
+                    </span>
+                  </div>
                 </div>
 
-                {/* 
-                  3. Card: Changed 'w-[calc(100%-4rem)]' to 'w-full' for mobile.
-                  Removed 'ml-12' so it fills the width on mobile.
-                */}
-                <div className="w-full md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border bg-muted/10 hover:bg-muted/20 transition-all duration-300 shadow-sm">
-                  <div className="flex flex-col space-y-2 mb-4">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <h3 className="text-xl font-bold text-foreground">{job.role}</h3>
-                      <span className="w-fit text-xs font-bold px-2 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                        {job.period}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
-                      <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
-                        <Briefcase size={14} /> {job.company}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin size={14} /> {job.location}
-                      </span>
-                    </div>
-                  </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                  {job.description}
+                </p>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {job.description}
-                  </p>
-
-                  <div className="space-y-3 mb-6">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-foreground/70">Key Responsibilities</h4>
-                    <ul className="space-y-2">
-                      {job.responsibilities.map((req, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 size={16} className="text-blue-600 mt-0.5 shrink-0" />
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {job.tech.map((t) => (
-                      <Badge key={t} variant="secondary" className="text-[10px] py-0 px-2 font-semibold uppercase tracking-wider">
-                        {t}
-                      </Badge>
+                <div className="space-y-3 mb-6">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-foreground/70">Key Responsibilities</h4>
+                  <ul className="space-y-2">
+                    {job.responsibilities.map((req, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <CheckCircle2 size={16} className="text-blue-600 mt-0.5 shrink-0" />
+                        <span>{req}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {job.tech.map((t) => (
+                    <Badge key={t} variant="secondary" className="text-[10px] py-0 px-2 font-semibold uppercase tracking-wider">
+                      {t}
+                    </Badge>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Tech Stack Component (CLIENT SIDE) */}
       <TechStack />
@@ -299,25 +296,39 @@ export default async function Home() {
       {/* Testimonials Preview Section */}
       <section id="testimonials-preview" className="space-y-8 scroll-mt-20">
         <div className="flex justify-between items-end">
-          <h2 className="text-3xl font-bold">Wall of Love</h2>
-          <Button variant="ghost" asChild className="gap-2 group text-blue-600"><Link href="/testimonials">View All <ArrowRight className="h-4 w-4 group-hover:translate-x-1" /></Link></Button>
+          <div className="space-y-2 text-center md:text-left">
+            <h2 className="text-3xl font-bold tracking-tight">Wall of Love</h2>
+            <p className="text-muted-foreground italic">Feedback from mentors and colleagues.</p>
+          </div>
+          <Button variant="ghost" asChild className="gap-2 group text-blue-600">
+            <Link href="/testimonials">
+              View All 
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
         </div>
-        {testimonials.length > 0 ? (
-          <Carousel opts={{ align: "start", loop: true }}>
+
+        {testimonials.length === 0 ? (
+          <p className="text-muted-foreground italic text-center">No testimonials yet. Be the first!</p>
+        ) : testimonials.length === 1 ? (
+          /* Center a single testimonial */
+          <div className="flex justify-center">
+            <TestimonialCard testimonial={testimonials[0]} isCarousel={false} />
+          </div>
+        ) : (
+          /* Show Carousel if 2 or more */
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-4">
               {testimonials.map((t) => (
-                <CarouselItem key={t.id} className="pl-4 basis-full md:basis-1/2">
-                  <Card className="p-8 relative h-full">
-                    <Quote className="absolute top-4 right-4 h-12 w-12 text-blue-600/10" />
-                    <p className="italic mb-6 text-sm">{t.content}</p>
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">{t.name[0]}{t.surname[0]}</div>
-                      <div><p className="font-bold text-sm">{t.name} {t.surname}</p><p className="text-xs text-muted-foreground">{t.role}</p></div>
-                    </div>
-                  </Card>
+                <CarouselItem key={t.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/2">
+                  <TestimonialCard testimonial={t} isCarousel={true} />
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <div className="flex justify-center md:justify-end gap-2 mt-8">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
           </Carousel>
         ) : <p className="text-muted-foreground italic">No testimonials yet.</p>}
       </section>

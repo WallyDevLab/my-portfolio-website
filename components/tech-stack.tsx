@@ -127,38 +127,42 @@ export function TechStack() {
                 </div>
               </button>
               
-              {/* 2. INNER CONTAINER: Changed from grid to flex-wrap */}
-              <div className={`
-                flex flex-wrap gap-4 px-5 overflow-hidden transition-all duration-500 ease-in-out
-                ${isOpen ? "max-h-[1000px] opacity-100 pb-8 mt-2" : "max-h-0 opacity-0 mt-0"}
-              `}>
-                {group.skills.map((skill) => {
-                  const Icon = skill.icon;
-                  const isBlackIcon = skill.color === "#000000" || skill.color === "#2D3748";
-                  return (
-                    <div 
-                      key={skill.name} 
-                      className="group flex flex-col items-center min-w-[80px] md:min-w-[100px] flex-1 sm:flex-initial"
-                    >
-                      <div className={`
-                        w-full aspect-square rounded-2xl transition-all duration-300 
-                        flex items-center justify-center border
-                        ${colors.bg} ${colors.border}
-                        group-hover:-translate-y-1 group-hover:shadow-lg ${colors.shadow}
-                      `}>
-                        <Icon 
-                          className={`w-7 h-7 md:w-8 md:h-8 transition-all duration-300 
-                            ${isBlackIcon ? "dark:text-white text-black" : ""}`} 
-                          style={!isBlackIcon ? { color: skill.color } : {}} 
-                        />
+              {/* 2. INNER CONTAINER: Flex-wrap with centering logic */}
+                <div className={`
+                  flex flex-wrap gap-6 justify-center px-5 overflow-hidden transition-all duration-500 ease-in-out
+                  ${isOpen ? "max-h-[1200px] opacity-100 pb-10 mt-4" : "max-h-0 opacity-0 mt-0"}
+                `}>
+                  {group.skills.map((skill) => {
+                    const Icon = skill.icon;
+                    const isBlackIcon = skill.color === "#000000" || skill.color === "#2D3748";
+                    
+                    return (
+                      <div 
+                        key={skill.name} 
+                        className="group flex flex-col items-center w-20 md:w-24 shrink-0"
+                      >
+                        {/* Fixed Tile Size: w-20 h-20 (80px) remains constant on all screens */}
+                        <div className={`
+                          w-20 h-20 rounded-2xl transition-all duration-300 
+                          flex items-center justify-center border shrink-0
+                          ${colors.bg} ${colors.border}
+                          group-hover:-translate-y-1 group-hover:shadow-lg ${colors.shadow}
+                        `}>
+                          <Icon 
+                            className={`w-8 h-8 transition-all duration-300 
+                              ${isBlackIcon ? "dark:text-white text-black" : ""}`} 
+                            style={!isBlackIcon ? { color: skill.color } : {}} 
+                          />
+                        </div>
+                        
+                        {/* Label: Fixed width matches container to handle long text */}
+                        <p className="mt-3 text-[10px] md:text-xs font-bold text-muted-foreground text-center leading-tight">
+                          {skill.name}
+                        </p>
                       </div>
-                      <p className="mt-2 text-[10px] md:text-xs font-bold text-muted-foreground text-center truncate w-full">
-                        {skill.name}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
             </div>
           );
         })}
