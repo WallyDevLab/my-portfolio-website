@@ -73,7 +73,7 @@ const PROJECTS: Project[] = [
   },
   {
     title: "WebSocket Chat Server",
-    image: "/WebSocket.png",
+    image: "/WebSocketChat.png",
     description: "A real-time chat application with username authentication, duplicate prevention, live user tracking, and a full server admin CLI for moderation and monitoring.",
     tech: ["Node.js", "TypeScript", "WebSocket", "Express"],
     codeUrl: "https://github.com/WallyDevLab/web-socket-server",
