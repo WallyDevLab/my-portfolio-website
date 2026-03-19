@@ -133,7 +133,7 @@ export function AddTestimonialForm() {
               <SelectItem value="Functional Analyst">Functional Analyst</SelectItem>
               <SelectItem value="Product Owner">Product Owner</SelectItem>
               <SelectItem value="UX/UI Designer">UX/UI Designer</SelectItem>
-              <SelectItem value="Quality Assurance">Quality Assurance</SelectItem>
+              <SelectItem value="Quality Assurance Engineer">Quality Assurance Engineer</SelectItem>
             </SelectContent>
           </Select>
 
