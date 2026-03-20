@@ -80,6 +80,16 @@ const PROJECTS: Project[] = [
     caseStudy:
       "Most web apps rely on HTTP request/response cycles, but I wanted to understand what happens when you need true bidirectional, real-time communication. This project was my deep dive into the WebSocket protocol.\n\nI built a complete client-server architecture from scratch: a TypeScript backend handling authentication, user presence tracking, and message broadcasting over raw WebSocket connections (no Socket.io abstraction), paired with a vanilla HTML/CSS/JS frontend that connects via the browser's native WebSocket API.\n\nThe server includes a full interactive CLI with commands for muting, kicking, banning users, broadcasting announcements, toggling maintenance mode, and viewing live stats. This gave me hands-on experience with real-time systems, connection lifecycle management, and the kind of admin tooling production chat services need.\n\nI intentionally kept the client framework-free to prove that real-time features do not require React or any heavy library. The separation of concerns (independent server and client codebases) also mirrors how production microservices are structured."
   },
+  {
+    title: "Intern Leave Tracker",
+    image: "/LeaveRequestApp.png",
+    description: "A full featured leave management system with multi-approver workflows, automated email notifications, business day calculation, and role-based dashboards for interns and approvers.",
+    tech: ["Next.js 15", "TypeScript", "Tailwind", "shadcn/ui"],
+    codeUrl: "https://github.com/WallyDevLab/leave-request-app",
+    liveUrl: "https://leave-request-app-sigma.vercel.app/dashboard",
+    caseStudy:
+      "At MTN, interns had no streamlined way to request and track leave. The process was manual, email-heavy, and lacked visibility for both interns and their approvers. I built this app to solve that.\n\nThe system implements a multi-approver workflow requiring 2 approvals before leave is confirmed, with automated email notifications sent to approvers containing direct review links. It handles partial approval states (1 approval + 1 rejection), business day calculation that excludes weekends, and real-time status tracking across Pending, Approved, Rejected, and Partial statuses.\n\nSecurity was a priority from the start. All user inputs are sanitized to prevent XSS and injection attacks, with strict email validation, date range enforcement, and character limits on every field. The UI follows MTN's brand identity using a 60:30:10 color ratio (black, yellow, white).\n\nI chose Next.js 15 with the App Router and Server Actions to keep the architecture clean, avoiding the need for separate API routes. The role-based dashboard gives interns and approvers completely different views tailored to their workflow, and the entire system is deployed on Vercel with environment-based configuration."
+  },
   // ── Add more projects below following the same shape ──
 ]
 
