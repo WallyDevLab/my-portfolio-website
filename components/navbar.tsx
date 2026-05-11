@@ -37,13 +37,13 @@ export function Navbar() {
 
   // FIX: Change these from functions () => (...) to variables (...)
   const navLinksJSX = (
-    <>
-      <a href="#about" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">About</a>
-      <a href="#experience" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Experience</a>
-      <a href="#projects" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Projects</a>
-      <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Contact</a>
-      <Link href="/testimonials" onClick={() => setIsOpen(false)} className="hover:text-blue-600 transition-colors">Testimonials</Link>
-    </>
+  <>
+    <a href="#about" onClick={() => setIsOpen(false)} className="hover:text-[color:var(--accent-brand)] transition-colors">About</a>
+    <a href="#experience" onClick={() => setIsOpen(false)} className="hover:text-[color:var(--accent-brand)] transition-colors">Experience</a>
+    <a href="#projects" onClick={() => setIsOpen(false)} className="hover:text-[color:var(--accent-brand)] transition-colors">Projects</a>
+    <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-[color:var(--accent-brand)] transition-colors">Contact</a>
+    <Link href="/testimonials" onClick={() => setIsOpen(false)} className="hover:text-[color:var(--accent-brand)] transition-colors">Testimonials</Link>
+  </>
   )
 
   const themeToggleJSX = (

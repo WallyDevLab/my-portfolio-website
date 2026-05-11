@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Mail, Eye, Briefcase, MapPin, CheckCircle2, ArrowRight } from "lucide-react"
-import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import profilePic from "@/public/image/portfolio-profile.jpg"
 import { TechStack } from "@/components/tech-stack"
@@ -10,7 +9,8 @@ import { ProjectCard } from "@/components/project-cards"
 import { ContactForm } from "@/components/contact-form"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
 import { HeroImage } from "@/components/hero-image"
-import type { Project } from "@/components/project-cards"
+import { EXPERIENCE, PROJECTS, getTestimonials } from "@/lib/data"
+import type { Project } from "@/lib/data"
 
 import {
   Carousel,
@@ -20,38 +20,38 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-const EXPERIENCE = [
-  {
-    company: "MTN CoE",
-    location: "Johannesburg",
-    role: "Software Engineer",
-    period: "January 2025 — PRESENT",
-    description: "Core member of the CMS engineering team building and supporting the Content Management System for MTN Group's Consolidation App.",
-    responsibilities: [
-      "CMS Platform Strategy: Designing scalable content models using Directus for enterprise-level delivery across multiple regions.",
-      "Full-Stack Development: Building performant web applications with Next.js, TypeScript, and Tailwind CSS, implementing ISR caching and component-driven architecture with shadcn/ui.",
-      "Security & Data Integrity: Implementing OAuth and Okta for enterprise-grade access control, server-side input sanitization, and whitelist validation to protect API endpoints.",
-      "CI/CD & Automation: Maintaining deployment pipelines with GitHub Actions, writing pre-deployment scripts for linting, type-checking, and build verification before production releases.",
-      "Performance & SEO: Optimizing page load times through ISR caching strategies, responsive image handling, structured metadata (Open Graph, JSON-LD), and WCAG 2.1 AA accessibility compliance.",
-      "Analytics & Monitoring: Leveraging Datadog for application performance monitoring (APM) and log management, filtering and triaging production logs to identify bottlenecks. Integrating PostHog for product telemetry, user behavior tracking, and proactive issue identification."
-    ],
-    tech: ["Next.js", "TypeScript", "Tailwind", "Directus", "OAuth", "Okta", "Datadog", "PostHog", "Prisma", "GitHub Actions", "Scrum"]
-  },
-  {
-    company: "Lelapa AI",
-    location: "Johannesburg",
-    role: "Prototype Developer",
-    period: "June 2024 — October 2024",
-    description: "Designed and built an AI-powered Sign Language Interpreter prototype translating South African Sign Language into all 11 official languages.",
-    responsibilities: [
-      "AI Integration: Leveraging Lelapa AI language APIs for multilingual translation and processing.",
-      "Inclusive Design: Creating multi-format outputs (text/audio) for deaf and hard-of-hearing users.",
-      "Rapid Prototyping: Iterating in fast-paced experimental environments to validate AI concepts.",
-      "Cross-Functional: Collaborating with AI engineers to evolve hackathon concepts into polished prototypes."
-    ],
-    tech: ["AI/ML APIs", "React", "Inclusive Design", "Rapid Prototyping", "Python"]
-  }
-]
+// const EXPERIENCE = [
+//   {
+//     company: "MTN CoE",
+//     location: "Johannesburg",
+//     role: "Software Engineer",
+//     period: "January 2025 — PRESENT",
+//     description: "Core member of the CMS engineering team building and supporting the Content Management System for MTN Group's Consolidation App.",
+//     responsibilities: [
+//       "CMS Platform Strategy: Designing scalable content models using Directus for enterprise-level delivery across multiple regions.",
+//       "Full-Stack Development: Building performant web applications with Next.js, TypeScript, and Tailwind CSS, implementing ISR caching and component-driven architecture with shadcn/ui.",
+//       "Security & Data Integrity: Implementing OAuth and Okta for enterprise-grade access control, server-side input sanitization, and whitelist validation to protect API endpoints.",
+//       "CI/CD & Automation: Maintaining deployment pipelines with GitHub Actions, writing pre-deployment scripts for linting, type-checking, and build verification before production releases.",
+//       "Performance & SEO: Optimizing page load times through ISR caching strategies, responsive image handling, structured metadata (Open Graph, JSON-LD), and WCAG 2.1 AA accessibility compliance.",
+//       "Analytics & Monitoring: Leveraging Datadog for application performance monitoring (APM) and log management, filtering and triaging production logs to identify bottlenecks. Integrating PostHog for product telemetry, user behavior tracking, and proactive issue identification."
+//     ],
+//     tech: ["Next.js", "TypeScript", "Tailwind", "Directus", "OAuth", "Okta", "Datadog", "PostHog", "Prisma", "GitHub Actions", "Scrum"]
+//   },
+//   {
+//     company: "Lelapa AI",
+//     location: "Johannesburg",
+//     role: "Prototype Developer",
+//     period: "June 2024 — October 2024",
+//     description: "Designed and built an AI-powered Sign Language Interpreter prototype translating South African Sign Language into all 11 official languages.",
+//     responsibilities: [
+//       "AI Integration: Leveraging Lelapa AI language APIs for multilingual translation and processing.",
+//       "Inclusive Design: Creating multi-format outputs (text/audio) for deaf and hard-of-hearing users.",
+//       "Rapid Prototyping: Iterating in fast-paced experimental environments to validate AI concepts.",
+//       "Cross-Functional: Collaborating with AI engineers to evolve hackathon concepts into polished prototypes."
+//     ],
+//     tech: ["AI/ML APIs", "React", "Inclusive Design", "Rapid Prototyping", "Python"]
+//   }
+// ]
 
 // ── PROJECTS DATA ─────────────────────────────────────────────────
 // Each project can include:
@@ -59,53 +59,29 @@ const EXPERIENCE = [
 //   liveUrl   — optional (renders a "Visit Site" button when present)
 //   caseStudy — optional (renders a "Case Study" dialog when present)
 
-const PROJECTS: Project[] = [
-  {
-    title: "Portfolio Profile",
-    image: "/image.png",
-    description: "A full-stack portfolio profile built with Next.js, TypeScript, and Prisma. Features a testimonial system, dark/light theming, and SEO optimization.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
-    codeUrl: "https://github.com/WallyDevLab/my-portfolio-website",
-    liveUrl: "https://wally-dev-lab.vercel.app",
-    caseStudy:
-      "I built this portfolio to go beyond a simple landing page. I wanted a full-stack project that demonstrates my ability to work across the entire web development stack: from database design with Prisma and PostgreSQL, to server-side rendering with Next.js, to polished UI with Tailwind and shadcn/ui.\n\nThe testimonial system was intentional. Rather than static text, it lets mentors and colleagues leave real, verified feedback that lives in a database. This showcases CRUD operations, form validation, spam prevention, and API design in a real-world context.\n\nIt also serves as a living playground where I test new patterns: ISR caching, accessibility standards, animation systems, and CI/CD automation scripts."
-  },
-  {
-    title: "WebSocket Chat Server",
-    image: "/WebSocketChat.png", 
-    description: "A real-time chat application with username authentication, duplicate prevention, live user tracking, and a full server admin CLI for moderation and monitoring.",
-    tech: ["Node.js", "TypeScript", "WebSocket", "Express"],
-    codeUrl: "https://github.com/WallyDevLab/web-socket-server",
-    liveUrl: "https://wallydevlab.github.io/web-socket-server/",
-    caseStudy:
-      "Most web apps rely on HTTP request/response cycles, but I wanted to understand what happens when you need true bidirectional, real-time communication. This project was my deep dive into the WebSocket protocol.\n\nI built a complete client-server architecture from scratch: a TypeScript backend handling authentication, user presence tracking, and message broadcasting over raw WebSocket connections (no Socket.io abstraction), paired with a vanilla HTML/CSS/JS frontend that connects via the browser's native WebSocket API.\n\nThe server includes a full interactive CLI with commands for muting, kicking, banning users, broadcasting announcements, toggling maintenance mode, and viewing live stats. This gave me hands-on experience with real-time systems, connection lifecycle management, and the kind of admin tooling production chat services need.\n\nI intentionally kept the client framework-free to prove that real-time features do not require React or any heavy library. The separation of concerns (independent server and client codebases) also mirrors how production microservices are structured."
-  },
-  {
-    title: "Intern Leave Tracker",
-    image: "/LeaveRequestApp.png",
-    description: "A full featured leave management system with multi-approver workflows, automated email notifications, business day calculation, and role-based dashboards for interns and approvers.",
-    tech: ["Next.js 15", "TypeScript", "Tailwind", "shadcn/ui"],
-    codeUrl: "https://github.com/WallyDevLab/leave-request-app",
-    liveUrl: "https://leave-request-app-sigma.vercel.app/dashboard",
-    caseStudy:
-      "At MTN, interns had no streamlined way to request and track leave. The process was manual, email-heavy, and lacked visibility for both interns and their approvers. I built this app to solve that.\n\nThe system implements a multi-approver workflow requiring 2 approvals before leave is confirmed, with automated email notifications sent to approvers containing direct review links. It handles partial approval states (1 approval + 1 rejection), business day calculation that excludes weekends, and real-time status tracking across Pending, Approved, Rejected, and Partial statuses.\n\nSecurity was a priority from the start. All user inputs are sanitized to prevent XSS and injection attacks, with strict email validation, date range enforcement, and character limits on every field. The UI follows MTN's brand identity using a 60:30:10 color ratio (black, yellow, white).\n\nI chose Next.js 15 with the App Router and Server Actions to keep the architecture clean, avoiding the need for separate API routes. The role-based dashboard gives interns and approvers completely different views tailored to their workflow, and the entire system is deployed on Vercel with environment-based configuration."
-  },
-  // ── Add more projects below following the same shape ──
-]
+// const PROJECTS: Project[] = [
+//   {
+//     title: "Portfolio Profile",
+//     image: "/image.png",
+//     description: "A full-stack portfolio profile built with Next.js, TypeScript, and Prisma. Features a testimonial system, dark/light theming, and SEO optimization.",
+//     tech: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
+//     link: "https://github.com/WallyDevLab/my-portfolio-website"
+//   }
+// ]
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Revalidate every 60 seconds to keep testimonials fresh
 
-async function getTestimonials() {
-  try {
-    return await prisma.testimonial.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' }
-    })
-  } catch (error) {
-    console.error("Failed to fetch testimonials", error);
-    return []
-  }
-}
+// async function getTestimonials() {
+//   try {
+//     return await prisma.testimonial.findMany({
+//       take: 5,
+//       orderBy: { createdAt: 'desc' }
+//     })
+//   } catch (error) {
+//     console.error("Failed to fetch testimonials", error);
+//     return []
+//   }
+// }
 
 export default async function Home() {
   const testimonials = await getTestimonials();
@@ -139,7 +115,13 @@ export default async function Home() {
         <section id="about" className="space-y-6 scroll-mt-20">
           <h2 className="text-3xl font-bold">About Me</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I am a software engineer with a passion for building scalable, performant, and maintainable web applications. My experience spans full-stack development, including frontend frameworks like React and TypeScript, backend integration with APIs, and implementing secure authentication and authorization workflows using OAuth and Okta. I have also worked extensively on CMS platforms, developing custom extensions, integrating APIs, and maintaining CI/CD pipelines to ensure reliable deployments. In addition to my technical focus, I am a Scrum Master in training, actively applying Agile methodologies to facilitate collaboration, sprint planning, and continuous improvement within cross-functional teams. I enjoy balancing technical problem-solving with team coordination, ensuring that both code quality and project delivery meet high standards. I am motivated by challenges at the intersection of design, functionality, and scalability, and I thrive in environments where I can both write high-quality code and contribute to team processes and delivery frameworks.
+            I build full-stack web applications for teams that care about correctness, performance, and delivery. My background spans enterprise CMS infrastructure at MTN Group&apos;s Centre of Excellence, where I worked across multiple African markets, implemented enterprise auth with OAuth and Okta, and maintained CI/CD pipelines that gated every production release.
+          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+          I have also worked at the intersection of AI and accessibility, building a South African Sign Language interpreter prototype at Lelapa AI that translated into all 11 official languages.
+          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+          Outside the code, I am a Scrum Master in training and currently open to new opportunities. I think good process is what lets good engineering compound over time.
           </p>
         </section>
       </AnimateOnScroll>

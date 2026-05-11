@@ -1,8 +1,6 @@
-export const dynamic = 'force-dynamic'; // This is the magic line
-
+export const revalidate = 60; // Revalidate every 60 seconds to keep testimonials fresh
 
 import { prisma } from "@/lib/prisma"
-import { AddTestimonialForm } from "./add-form"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { ArrowLeft } from "lucide-react"
@@ -12,10 +10,10 @@ import { Button } from "@/components/ui/button"
 async function getTestimonials() {
   try {
     return await prisma.testimonial.findMany({
+      where: { approved: true },
       orderBy: { createdAt: 'desc' }
     })
   } catch (error) {
-    console.error("Database connection failed:", error);
     return []; // Return an empty array so the page still renders
   }
 }
@@ -42,7 +40,6 @@ export default async function TestimonialsPage() {
           <h1 className="text-4xl font-extrabold tracking-tight">Wall of Love</h1>
           <p className="text-muted-foreground text-lg">Testimonials from people I&apos;ve worked with.</p>
         </div>
-        <AddTestimonialForm />
       </div>
 
       {categories.map((cat) => (

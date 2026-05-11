@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useRef } from "react"
-import emailjs from "@emailjs/browser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -41,29 +40,24 @@ export function ContactForm() {
     }
 
     try {
-      // 1. Send the message to your inbox (main template)
-      await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        form,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      )
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      })
 
-      // 2. Send auto-reply to the person who contacted you
-      if (process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID) {
-        await emailjs.sendForm(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID,
-          form,
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-        )
+      const data = await res.json()
+
+      if (!res.ok) {
+        setStatus("error")
+        setErrorMessage(data.error ?? "Something went wrong. Please try again later.")
+        return
       }
 
       setStatus("success")
       setMessageLength(0)
       formRef.current?.reset()
-    } catch (err) {
-      console.error("EmailJS error:", err)
+    } catch {
       setStatus("error")
       setErrorMessage("Something went wrong. Please try again later.")
     }

@@ -13,16 +13,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { ArrowRight, ExternalLink, BookOpen } from "lucide-react"
+import type { Project } from "@/lib/data"
 
-export interface Project {
-  title: string
-  image: string
-  description: string
-  tech: string[]
-  codeUrl: string
-  liveUrl?: string
-  caseStudy?: string
-}
+// export interface Project {
+//   title: string
+//   image: string
+//   description: string
+//   tech: string[]
+//   codeUrl: string
+//   liveUrl?: string
+//   caseStudy?: string
+// }
 
 interface ProjectCardProps {
   project: Project

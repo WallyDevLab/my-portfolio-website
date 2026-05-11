@@ -6,18 +6,22 @@ import { Footer } from "@/components/footer"
 
 // 2. Define and export the metadata object
 export const metadata: Metadata = {
-  title: "Wally Dev Lab | Full-Stack Developer",
-  description: "Portfolio of Katlego Barayi",
+  title: "Katlego Barayi | Software Engineer",
+  description: "Full-stack software engineer open to new opportunities. Building for correctness, performance, and delivery.",
   icons: {
-    icon: "@/app/Wally-Dev-Lab-Official-Logo-Vertical-White.ico", // Replace with your actual filename in the public folder
+    icon: "/icons/black-icon.ico",
   },
-  // This helps with SEO and social media sharing
   openGraph: {
-    title: "Wally Dev Lab",
-    description: "Full-Stack Developer Portfolio",
+    title: "Katlego Barayi — Software Engineer · Open to Work",
+    description: "Full-stack software engineer open to new opportunities. Building for correctness, performance, and delivery.",
     url: "https://wally-dev-lab.vercel.app/",
     siteName: "Wally Dev Lab",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Katlego Barayi — Software Engineer · Open to Work",
+    description: "Full-stack software engineer open to new opportunities.",
   },
 }
 
