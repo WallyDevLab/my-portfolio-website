@@ -101,7 +101,7 @@ export default async function Home() {
           </p>
           <div className="flex flex-wrap gap-4 w-full justify-center md:justify-start mt-2 animate-slide-up delay-3">
             <Button asChild className="gap-2">
-              <a href="/Katlego_Barayi_CV.pdf" target="_blank" rel="noreferrer"><Eye className="h-4 w-4" />View CV</a>
+              <a href="/Katlego_Barayi.pdf" target="_blank" rel="noreferrer"><Eye className="h-4 w-4" />View CV</a>
             </Button>
             <Button variant="outline" asChild className="gap-2">
               <a href="#contact"><Mail className="h-4 w-4" />Contact Me</a>
@@ -124,6 +124,49 @@ export default async function Home() {
           Outside the code, I am a Scrum Master in training and currently open to new opportunities. I think good process is what lets good engineering compound over time.
           </p>
         </section>
+      </AnimateOnScroll>
+
+            {/* ═══ Featured Projects Section ═══ */}
+      <AnimateOnScroll>
+        <section id="projects" className="space-y-8 scroll-mt-20">
+        <div className="flex flex-col items-center md:items-start space-y-2">
+          <h2 className="text-3xl font-bold tracking-tight">Featured Projects</h2>
+          <p className="text-muted-foreground font-medium text-center md:text-left">
+            A collection of my recent work and personal experiments.
+          </p>
+        </div>
+
+        {PROJECTS.length === 0 ? (
+          <p className="text-muted-foreground italic text-center">No projects to show yet. Stay tuned!</p>
+        ) : PROJECTS.length === 1 ? (
+          /* Center a single project card */
+          <div className="flex justify-center w-full">
+            <ProjectCard project={PROJECTS[0]} featured />
+          </div>
+        ) : (
+          /* Carousel for 2+ projects */
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {PROJECTS.map((project, index) => (
+                <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2 lg:basis-1/2">
+                  <ProjectCard project={project} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <div className="flex justify-center md:justify-end gap-2 mt-6">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
+        )}
+      </section>
       </AnimateOnScroll>
 
       {/* ═══ Work Experience Section ═══ */}
@@ -199,48 +242,7 @@ export default async function Home() {
         <TechStack />
       </AnimateOnScroll>
 
-      {/* ═══ Featured Projects Section ═══ */}
-      <AnimateOnScroll>
-        <section id="projects" className="space-y-8 scroll-mt-20">
-        <div className="flex flex-col items-center md:items-start space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Featured Projects</h2>
-          <p className="text-muted-foreground font-medium text-center md:text-left">
-            A collection of my recent work and personal experiments.
-          </p>
-        </div>
 
-        {PROJECTS.length === 0 ? (
-          <p className="text-muted-foreground italic text-center">No projects to show yet. Stay tuned!</p>
-        ) : PROJECTS.length === 1 ? (
-          /* Center a single project card */
-          <div className="flex justify-center w-full">
-            <ProjectCard project={PROJECTS[0]} featured />
-          </div>
-        ) : (
-          /* Carousel for 2+ projects */
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {PROJECTS.map((project, index) => (
-                <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2 lg:basis-1/2">
-                  <ProjectCard project={project} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            <div className="flex justify-center md:justify-end gap-2 mt-6">
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
-            </div>
-          </Carousel>
-        )}
-      </section>
-      </AnimateOnScroll>
 
       {/* ═══ Testimonials Preview Section ═══ */}
       <AnimateOnScroll>
