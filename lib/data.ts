@@ -80,11 +80,27 @@ export const PROJECTS: Project[] = [
 export async function getTestimonials() {
   try {
     return await prisma.testimonial.findMany({
-      take: 5,
       where: { approved: true },
       orderBy: { createdAt: "desc" },
     })
-  } catch {
+  } catch (error) {
+    console.error("Failed to fetch testimonials from Prisma:", error)
     return []
   }
+}
+
+function shuffle<T>(items: T[]): T[] {
+  const result = [...items]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}
+
+// Used on the homepage carousel so the featured testimonials aren't always
+// the same 5 most-recent ones — reshuffled on every ISR revalidation.
+export async function getRandomTestimonials(limit = 5) {
+  const testimonials = await getTestimonials()
+  return shuffle(testimonials).slice(0, limit)
 }

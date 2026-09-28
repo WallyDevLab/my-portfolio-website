@@ -9,7 +9,7 @@ import { ProjectCard } from "@/components/project-cards"
 import { ContactForm } from "@/components/contact-form"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
 import { HeroImage } from "@/components/hero-image"
-import { EXPERIENCE, PROJECTS, getTestimonials } from "@/lib/data"
+import { EXPERIENCE, PROJECTS, getRandomTestimonials } from "@/lib/data"
 import type { Project } from "@/lib/data"
 
 import {
@@ -84,7 +84,7 @@ export const revalidate = 60; // Revalidate every 60 seconds to keep testimonial
 // }
 
 export default async function Home() {
-  const testimonials = await getTestimonials();
+  const testimonials = await getRandomTestimonials();
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 space-y-32">

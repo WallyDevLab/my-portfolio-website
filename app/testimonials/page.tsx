@@ -1,22 +1,11 @@
 export const revalidate = 60; // Revalidate every 60 seconds to keep testimonials fresh
 
-import { prisma } from "@/lib/prisma"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-async function getTestimonials() {
-  try {
-    return await prisma.testimonial.findMany({
-      where: { approved: true },
-      orderBy: { createdAt: 'desc' }
-    })
-  } catch (error) {
-    return []; // Return an empty array so the page still renders
-  }
-}
+import { getTestimonials } from "@/lib/data"
 
 type Testimonial = Awaited<ReturnType<typeof getTestimonials>>[number]
 
