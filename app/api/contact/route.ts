@@ -33,9 +33,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "One of the fields is too long." }, { status: 400 })
   }
 
-  const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PRIVATE_KEY } = process.env
+  const { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, EMAILJS_PRIVATE_KEY } = process.env
 
-  if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PRIVATE_KEY) {
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY || !EMAILJS_PRIVATE_KEY) {
     console.error("Contact form: missing EmailJS environment variables")
     return NextResponse.json(
       { error: "Something went wrong. Please try again later." },
@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       service_id: EMAILJS_SERVICE_ID,
       template_id: EMAILJS_TEMPLATE_ID,
+      user_id: EMAILJS_PUBLIC_KEY,
       accessToken: EMAILJS_PRIVATE_KEY,
       template_params: {
         user_name: name,
