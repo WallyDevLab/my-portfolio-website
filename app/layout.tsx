@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer"
 
 // 2. Define and export the metadata object
 export const metadata: Metadata = {
+  metadataBase: new URL("https://wally-dev-lab.vercel.app"),
   title: "Katlego Barayi | Software Engineer",
   description: "Full-stack software engineer open to new opportunities. Building for correctness, performance, and delivery.",
   icons: {

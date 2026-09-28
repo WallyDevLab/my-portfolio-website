@@ -20,68 +20,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-// const EXPERIENCE = [
-//   {
-//     company: "MTN CoE",
-//     location: "Johannesburg",
-//     role: "Software Engineer",
-//     period: "January 2025 — PRESENT",
-//     description: "Core member of the CMS engineering team building and supporting the Content Management System for MTN Group's Consolidation App.",
-//     responsibilities: [
-//       "CMS Platform Strategy: Designing scalable content models using Directus for enterprise-level delivery across multiple regions.",
-//       "Full-Stack Development: Building performant web applications with Next.js, TypeScript, and Tailwind CSS, implementing ISR caching and component-driven architecture with shadcn/ui.",
-//       "Security & Data Integrity: Implementing OAuth and Okta for enterprise-grade access control, server-side input sanitization, and whitelist validation to protect API endpoints.",
-//       "CI/CD & Automation: Maintaining deployment pipelines with GitHub Actions, writing pre-deployment scripts for linting, type-checking, and build verification before production releases.",
-//       "Performance & SEO: Optimizing page load times through ISR caching strategies, responsive image handling, structured metadata (Open Graph, JSON-LD), and WCAG 2.1 AA accessibility compliance.",
-//       "Analytics & Monitoring: Leveraging Datadog for application performance monitoring (APM) and log management, filtering and triaging production logs to identify bottlenecks. Integrating PostHog for product telemetry, user behavior tracking, and proactive issue identification."
-//     ],
-//     tech: ["Next.js", "TypeScript", "Tailwind", "Directus", "OAuth", "Okta", "Datadog", "PostHog", "Prisma", "GitHub Actions", "Scrum"]
-//   },
-//   {
-//     company: "Lelapa AI",
-//     location: "Johannesburg",
-//     role: "Prototype Developer",
-//     period: "June 2024 — October 2024",
-//     description: "Designed and built an AI-powered Sign Language Interpreter prototype translating South African Sign Language into all 11 official languages.",
-//     responsibilities: [
-//       "AI Integration: Leveraging Lelapa AI language APIs for multilingual translation and processing.",
-//       "Inclusive Design: Creating multi-format outputs (text/audio) for deaf and hard-of-hearing users.",
-//       "Rapid Prototyping: Iterating in fast-paced experimental environments to validate AI concepts.",
-//       "Cross-Functional: Collaborating with AI engineers to evolve hackathon concepts into polished prototypes."
-//     ],
-//     tech: ["AI/ML APIs", "React", "Inclusive Design", "Rapid Prototyping", "Python"]
-//   }
-// ]
-
-// ── PROJECTS DATA ─────────────────────────────────────────────────
-// Each project can include:
-//   codeUrl   — always required (GitHub repo link)
-//   liveUrl   — optional (renders a "Visit Site" button when present)
-//   caseStudy — optional (renders a "Case Study" dialog when present)
-
-// const PROJECTS: Project[] = [
-//   {
-//     title: "Portfolio Profile",
-//     image: "/image.png",
-//     description: "A full-stack portfolio profile built with Next.js, TypeScript, and Prisma. Features a testimonial system, dark/light theming, and SEO optimization.",
-//     tech: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
-//     link: "https://github.com/WallyDevLab/my-portfolio-website"
-//   }
-// ]
-
 export const revalidate = 60; // Revalidate every 60 seconds to keep testimonials fresh
-
-// async function getTestimonials() {
-//   try {
-//     return await prisma.testimonial.findMany({
-//       take: 5,
-//       orderBy: { createdAt: 'desc' }
-//     })
-//   } catch (error) {
-//     console.error("Failed to fetch testimonials", error);
-//     return []
-//   }
-// }
 
 export default async function Home() {
   const testimonials = await getRandomTestimonials();
