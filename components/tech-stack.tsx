@@ -177,6 +177,7 @@ export function TechStack() {
                         `}
                       >
                         <Icon
+                          aria-hidden="true"
                           className={`w-8 h-8 transition-all duration-300 ${isBlackIcon ? "dark:text-white text-black" : ""}`}
                           style={!isBlackIcon ? { color: skill.color } : {}}
                         />

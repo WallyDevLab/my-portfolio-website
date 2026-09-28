@@ -39,7 +39,7 @@ export function TestimonialCard({ testimonial, isCarousel }: TestimonialCardProp
           </p>
 
           <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-full bg-accent-brand flex items-center justify-center text-white font-bold shrink-0">
+            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold shrink-0">
               {initials}
             </div>
             <div>
@@ -58,7 +58,7 @@ export function TestimonialCard({ testimonial, isCarousel }: TestimonialCardProp
       <HoverCardContent className="w-80 md:w-96 p-6 shadow-2xl border-accent-brand/20">
         <div className="space-y-4">
           <div className="flex items-center gap-3 border-b pb-3">
-            <div className="h-8 w-8 rounded-full bg-accent-brand flex items-center justify-center text-white text-xs font-bold shrink-0">
+            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
               {initials}
             </div>
             <div>
