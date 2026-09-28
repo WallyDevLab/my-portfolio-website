@@ -7,12 +7,17 @@ export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown"
 
   if (ratelimit) {
-    const { success } = await ratelimit.limit(ip)
-    if (!success) {
-      return NextResponse.json(
-        { error: "Too many messages sent. Please try again later." },
-        { status: 429 }
-      )
+    try {
+      const { success } = await ratelimit.limit(ip)
+      if (!success) {
+        return NextResponse.json(
+          { error: "Too many messages sent. Please try again later." },
+          { status: 429 }
+        )
+      }
+    } catch (error) {
+      // Fail open: a broken/unreachable rate limiter shouldn't take down the form.
+      console.error("Contact form: rate limiter unreachable, allowing request", error)
     }
   }
 
