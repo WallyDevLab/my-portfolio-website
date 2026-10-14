@@ -75,6 +75,16 @@ export const PROJECTS: Project[] = [
     caseStudy:
       "I built this portfolio to go beyond a simple landing page. I wanted a full-stack project that demonstrates my ability to work across the entire web development stack: from database design with Prisma and PostgreSQL, to server-side rendering with Next.js, to polished UI with Tailwind and shadcn/ui.\n\nThe testimonial system was intentional. Rather than static text, it lets mentors and colleagues leave real, verified feedback that lives in a database. This showcases CRUD operations, form validation, spam prevention, and API design in a real-world context.\n\nIt also serves as a living playground where I test new patterns: ISR caching, accessibility standards, animation systems, and CI/CD automation scripts."
   },
+  {
+    title: "CodeQuote",
+    image: "/CodeQuotes.png",
+    description: "A pricing, quoting, and invoicing tool for freelancers. Build time-based or fixed-price estimates, turn them into quotations and invoices, and track what's been billed and received in both rand and dollars.",
+    tech: ["Next.js 15", "TypeScript", "Prisma", "Tailwind"],
+    codeUrl: "https://github.com/WallyDevLabs/demo-quotes",
+    liveUrl: "https://demo-quotes.vercel.app/",
+    caseStudy:
+      "As a freelance developer, I bill different clients at different rates depending on the type of project, and often in two currencies. Spreadsheets made it easy to misquote and hard to see what had actually been invoiced versus received. CodeQuote is my answer: one place to price a project, send a quote, invoice against it, and track payment.\n\nEstimates can be time-based or fixed-price. Once a quotation is sent it is numbered sequentially and frozen, so what the client agreed to can never be silently edited. A single accepted quotation can be split across several invoices up to its accepted value, and payments are append-only: mistakes are reversed, never overwritten. The dashboard reports quoted, confirmed, invoiced, received, outstanding, and overdue figures separately per currency (ZAR and USD), with a warning when trailing twelve-month invoicing approaches a VAT threshold.\n\nSecurity and correctness were priorities: password sign-in with required two-factor authentication, rate-limited login, an audit log, Zod validation, and decimal.js for money so there are no floating-point errors. It is covered by Vitest unit and integration tests plus Playwright end-to-end tests, and the live demo runs in a no-sign-in mode with seeded sample data."
+  },
 ]
 
 export async function getTestimonials() {
