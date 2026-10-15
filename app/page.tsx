@@ -40,7 +40,7 @@ export default async function Home() {
           </p>
           <div className="flex flex-wrap gap-4 w-full justify-center md:justify-start mt-2 animate-slide-up delay-3">
             <Button asChild className="gap-2">
-              <a href="/Katlego_Barayi.pdf" target="_blank" rel="noreferrer"><Eye className="h-4 w-4" />View CV</a>
+              <a href="/Katlego_Barayi_CV.pdf" target="_blank" rel="noreferrer"><Eye className="h-4 w-4" />View CV</a>
             </Button>
             <Button variant="outline" asChild className="gap-2">
               <a href="#contact"><Mail className="h-4 w-4" />Contact Me</a>
